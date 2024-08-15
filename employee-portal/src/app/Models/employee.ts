@@ -1,8 +1,13 @@
+import { Email } from "./email";
+import { EmployeeDetail } from "./employeeDetail";
+import { Manager } from "./manager";
+import { Name } from "./name";
+
 export class Employee {
 
     id: string;
     userName: string;
-    name: {}; // TODO: Placeholder for Name Object
+    name: Name;
         // formatted
         // familyName
         // givenName
@@ -10,11 +15,11 @@ export class Employee {
     userType: string;
     active: boolean;
     password: string;
-    emails: any[]; // TODO: Placeholder for Email Object
+    emails: Email[];
         // type : string
         // value : string
         // primary : boolean
-    employeeDetails: {}; // TODO: Placeholder for EmployeeDetails Object
+    employeeDetails: EmployeeDetail; // TODO: Placeholder for EmployeeDetails Object
     /**
      *  accounts : array
          -- The accounts associated with this User.
@@ -57,13 +62,13 @@ export class Employee {
         lastRefresh : date-time
          -- Datetime representation of the last refresh for this User.
      */
-    manager: {}; // TODO: Placeholder for Manager Object
+    manager: Manager; // TODO: Placeholder for Manager Object
         // displayName : string
         // value : string
         // $ref : string
 
 
-    constructor(id: string, userName: string, name: {}, displayName: string, userType: string, active: boolean, password: string, emails: any[], employeeDetails: {}, manager: {}) {
+    constructor(id: string, userName: string, name: Name, displayName: string, userType: string, active: boolean, password: string, emails: Email[], employeeDetails: EmployeeDetail, manager: Manager) {
         this.id = id;
         this.userName = userName;
         this.name = name;
