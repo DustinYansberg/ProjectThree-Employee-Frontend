@@ -17,26 +17,21 @@ import { AuthService } from 'src/app/Services/auth.service';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
-    valCheck: string[] = ['remember'];
-
-    password!: string;
     username: string = '';
-
+    password!: string;
     loading: boolean = false;
-
-    constructor(private authService: AuthService, private router: Router, public layoutService: LayoutService) {}
-
+  
+    constructor(private authService: AuthService, private router: Router) {}
+  
     onSubmit() {
-        this.loading = true;
-        this.authService.login(this.username, this.password).subscribe(success => {
+      this.loading = true;
+      this.authService.login(this.username, this.password).subscribe(success => {
         if (success) {
-            this.router.navigate(['/']);
-            this.loading = false;
+          this.router.navigate(['/']);
         } else {
-            this.loading = false;
-            alert('Login failed');
+          alert('Login failed');
         }
-        });
+        this.loading = false;
+      });
     }
-}
+  }
