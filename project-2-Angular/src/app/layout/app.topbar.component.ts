@@ -20,14 +20,13 @@ export class AppTopBarComponent {
 
     constructor(public layoutService: LayoutService, public authService: AuthService, public router: Router) { }
 
-
-
     profileItems: MenuItem[];
 
     settingsItems: MenuItem[];
 
     isDarkMode: boolean = false;
 
+    // Dropdown for profile items
     ngOnInit() {
         this.profileItems = [
           {
@@ -48,6 +47,7 @@ export class AppTopBarComponent {
         this.updateSettingsItems();
       }
 
+      // Light/dark mode toggle
       toggleDarkMode() {
         this.isDarkMode = !this.isDarkMode;
         if (this.isDarkMode) {
@@ -59,6 +59,7 @@ export class AppTopBarComponent {
         this.updateSettingsItems();
       }
 
+      // Update the settings icon
       updateSettingsItems() {
         this.settingsItems = [
           {
@@ -74,11 +75,13 @@ export class AppTopBarComponent {
         this.colorScheme = colorScheme;
       }
     
+      // Auth Information
       signOut() {
         this.authService.logout(); // Adjust this method according to your AuthService
         this.router.navigate(['/auth/login']);
       }
 
+      // Theme for service
       set theme(val: string) {
         this.layoutService.config.update((config) => ({
             ...config,
