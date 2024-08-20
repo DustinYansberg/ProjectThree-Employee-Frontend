@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
         { path: 'error', loadChildren: () => import('./error/error.module').then(m => m.ErrorModule) },
         { path: 'access', loadChildren: () => import('./access/access.module').then(m => m.AccessModule) },
         { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+        { path: 'profile', loadChildren: () => import('./profile/profile.component').then(m => m.ProfileComponent) },
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

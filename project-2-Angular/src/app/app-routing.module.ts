@@ -84,13 +84,13 @@ import { AuthGuard } from './Services/auth.guard';
             },
 
             // Auth0 Paths
-            // {
-            //   path: 'profile',
-            //   loadChildren: () =>
-            //     import('./features/profile/profile.module').then(
-            //       (m) => m.ProfileModule
-            //     ),
-            // },
+            {
+              path: 'profile',
+              loadChildren: () =>
+                import('./components/auth/profile/profile.module').then(
+                  (m) => m.ProfileModule
+                ),
+            },
             // {
             //   path: 'public',
             //   loadChildren: () =>
