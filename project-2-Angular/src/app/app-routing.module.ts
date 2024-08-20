@@ -17,8 +17,8 @@ import { AuthGuard } from './Services/auth.guard';
               canActivate: [AuthGuard],
               loadChildren: () =>
                 import(
-                  './components/account-detail/account-detail.module'
-                ).then((m) => m.AccountDetailModule),
+                  './components/employee-detail/employee-detail.module'
+                ).then((m) => m.EmployeeDetailModule),
               //   canActivate: [AuthGuard],
               //   loadChildren: () =>
               //     import('./components/dashboard/dashboard.module').then(
@@ -33,14 +33,14 @@ import { AuthGuard } from './Services/auth.guard';
                   (m) => m.EmployeesModule
                 ),
             },
-            {
-              path: 'employeedetail/:id',
-              canActivate: [AuthGuard],
-              loadChildren: () =>
-                import(
-                  './components/employee-detail/employee-detail.module'
-                ).then((m) => m.EmployeeDetailModule),
-            },
+            // {
+            //   path: 'employeedetail/:id',
+            //   canActivate: [AuthGuard],
+            //   loadChildren: () =>
+            //     import(
+            //       './components/employee-detail/employee-detail.module'
+            //     ).then((m) => m.EmployeeDetailModule),
+            // },
             {
               path: 'accounts',
               canActivate: [AuthGuard],
@@ -49,14 +49,14 @@ import { AuthGuard } from './Services/auth.guard';
                   (m) => m.AccountsModule
                 ),
             },
-            // {
-            //   path: 'accountdetail/:id',
-            //   canActivate: [AuthGuard],
-            //   loadChildren: () =>
-            //     import(
-            //       './components/account-detail/account-detail.module'
-            //     ).then((m) => m.AccountDetailModule),
-            // },
+            {
+              path: 'accountdetail/:id',
+              canActivate: [AuthGuard],
+              loadChildren: () =>
+                import(
+                  './components/account-detail/account-detail.module'
+                ).then((m) => m.AccountDetailModule),
+            },
             {
               path: 'uikit',
               loadChildren: () =>
