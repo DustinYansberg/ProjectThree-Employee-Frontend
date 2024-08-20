@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -14,14 +18,30 @@ import { PhotoService } from './demo/service/photo.service';
 import { AuthService } from './Services/auth.service';
 import { AuthGuard } from './Services/auth.guard';
 
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
+
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule],
-    providers: [
-        { provide: LocationStrategy, useClass: PathLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, AuthService, AuthGuard
-    ],
-    bootstrap: [AppComponent],
+  declarations: [AppComponent, NotfoundComponent],
+  imports: [
+    AppRoutingModule,
+    AuthModule.forRoot({
+      ...env.auth0,
+    }),
+    AppLayoutModule,
+  ],
+  providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    CountryService,
+    CustomerService,
+    EventService,
+    IconService,
+    NodeService,
+    PhotoService,
+    ProductService,
+    AuthService,
+    AuthGuard,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
