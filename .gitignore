@@ -40,3 +40,16 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+*.vsidx
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/CodeChunks.db
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/CodeChunks.db-shm
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/CodeChunks.db-wal
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/SemanticSymbols.db
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/SemanticSymbols.db-shm
+.vs/ProjectThree-Employee-Frontend/CopilotIndices/0.2.1634.3922/SemanticSymbols.db-wal
+.vs/ProjectThree-Employee-Frontend/v17/.wsuo
+.vs/ProjectThree-Employee-Frontend/v17/DocumentLayout.backup.json
+.vs/ProjectThree-Employee-Frontend/v17/DocumentLayout.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/ProjectSettings.json
