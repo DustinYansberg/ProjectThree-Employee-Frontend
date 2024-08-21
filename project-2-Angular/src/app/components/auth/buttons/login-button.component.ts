@@ -13,7 +13,7 @@ export class LoginButtonComponent {
   handleLogin(): void {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/profile',
+        target: '/auth/profile',
       },
     });
   }
