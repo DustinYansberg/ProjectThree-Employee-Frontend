@@ -30,6 +30,11 @@ export class AppLayoutComponent implements OnDestroy {
 
   @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
+  ngOnInit(): void {
+    console.log(`Autentication`);
+    console.log(this.isAuthenticated$);
+  }
+
   constructor(
     public layoutService: LayoutService,
     public renderer: Renderer2,

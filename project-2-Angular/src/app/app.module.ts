@@ -19,6 +19,7 @@ import { AuthService } from './Services/auth.service';
 import { AuthGuard } from './Services/auth.guard';
 
 import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule as localAuthModule } from './components/auth/auth.module';
 import { environment as env } from '../environments/environment';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { environment as env } from '../environments/environment';
     AuthModule.forRoot({
       ...env.auth0,
     }),
+    localAuthModule,
     AppLayoutModule,
   ],
   providers: [

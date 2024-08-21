@@ -1,7 +1,7 @@
 <div class="layout-wrapper" [ngClass]="containerClass">
   <!-- Only acces the below if authorized and signed in, else show the login button -->
 
-  <ng-container *ngIf="!isAuthenticated$ | async; else unAuthenticated">
+  <ng-container *ngIf="isAuthenticated$ | async; else unAuthenticated">
     <app-topbar></app-topbar>
     <div class="layout-sidebar">
       <app-sidebar></app-sidebar>

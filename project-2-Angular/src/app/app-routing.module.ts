@@ -119,13 +119,13 @@ import { AuthGuard } from './Services/auth.guard';
                   (m) => m.CallbackModule
                 ),
             },
-            //   {
-            //     path: '**',
-            //     loadChildren: () =>
-            //       import('./features/not-found/not-found.module').then(
-            //         (m) => m.NotFoundModule
-            //       ),
-            //   },
+            // {
+            //   path: '**',
+            //   loadChildren: () =>
+            //     import('./features/not-found/not-found.module').then(
+            //       (m) => m.NotFoundModule
+            //     ),
+            // },
           ],
         },
         {
@@ -140,7 +140,7 @@ import { AuthGuard } from './Services/auth.guard';
               (m) => m.LandingModule
             ),
         },
-        // { path: 'notfound', component: NotfoundComponent },
+        { path: 'notfound', component: NotfoundComponent },
         { path: '**', redirectTo: '/notfound' },
       ],
       {
