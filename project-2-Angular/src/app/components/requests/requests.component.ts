@@ -198,6 +198,12 @@ export class RequestsComponent implements OnInit {
       this.request = this.defaultRequest;
     }
 
+    openNew() {
+      this.request = this.defaultRequest;
+      this.submitted = false;
+      this.requestDialog = true;
+     }
+
 		hideDialog() {
 				this.requestDialog = false;
 				this.submitted = false;

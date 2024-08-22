@@ -6,8 +6,7 @@
         <ng-template pTemplate="left">
           <div class="my-2">
             <!--<button pButton pRipple label="New Request" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>-->
-            <button pButton pRipple label="Approve" icon="pi pi-check" class="p-button-success mr-2" (click)="openNew()" [disabled]="!selectedRequests || !selectedRequests.length"></button>
-            <button pButton pRipple label="Deny" icon="pi pi-ban" class="p-button-danger mr-2" (click)="openNew()" [disabled]="!selectedRequests || !selectedRequests.length"></button>
+            <button pButton pRipple label="New Request" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
           </div>
         </ng-template>
 
@@ -31,7 +30,7 @@
             <th style="width:3rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th pSortableColumn="displayName">Username <p-sortIcon field='displayName'></p-sortIcon></th>
+            <th pSortableColumn="displayName">Request Date <p-sortIcon field='displayName'></p-sortIcon></th>
             <th pSortableColumn="emails">Role <p-sortIcon field="emails"></p-sortIcon></th>
             <th pSortableColumn="managerDisplayName">Notes <p-sortIcon field='managerDisplayName'></p-sortIcon></th>
             <th></th>
@@ -70,11 +69,6 @@
 
     <p-dialog [(visible)]="requestDialog" [style]="{width: '450px'}" header="Request Details" [modal]="true" class="p-fluid">
       <ng-template pTemplate="content">
-        <div class="field">
-          <label for="userName">Username</label>
-          <input type="text" pInputText id="userName" [(ngModel)]="request.employee.username" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !request.employee.displayName}" />
-          <small class="ng-dirty ng-invalid" *ngIf="submitted && !request.employee.displayName">Employee Username is required.</small>
-        </div>
         <div class="field">
           <label for="userName">Role</label>
           <input type="text" pInputText id="role" [(ngModel)]="request.role.value" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !request.role.value}" />
