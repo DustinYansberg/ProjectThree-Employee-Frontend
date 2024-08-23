@@ -1,11 +1,11 @@
 import { Email } from 'src/app/Models/email';
-import { Meta } from 'src/app/Models/meta';
-import { EmployeeDetail } from 'src/app/Models/employeeDetails';
+import { EmployeeDetail } from 'src/app/Models/employeeDetail';
 import { EmployeeService } from 'src/app/Services/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/Services/user.service';
+import { Meta } from '../../Models/meta';
 
 @Component({
   templateUrl: './employee-detail.component.html',
@@ -21,7 +21,8 @@ export class EmployeeDetailComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
-
+  
+  
   ngOnInit() {
     this.userService.getEmployeeId().subscribe((id) => {
       this.employeeId = id;

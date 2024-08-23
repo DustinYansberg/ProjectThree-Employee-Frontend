@@ -1,6 +1,3 @@
-import { EmployeesComponent } from './employees.component';
-import { EmployeesRoutingModule } from './employees-routing.module';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,11 +14,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { EmployeeService } from 'src/app/Services/employee.service';
+import { RequestService } from '../../Services/request.service';
+import { RequestsComponent } from './requests.component';
+import { RequestsRoutingModule } from './requests-routing.module';
+
+
 
 @NgModule({
 	imports: [
-		EmployeesRoutingModule,
 		CommonModule,
         TableModule,
         FileUploadModule,
@@ -36,11 +36,12 @@ import { EmployeeService } from 'src/app/Services/employee.service';
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
+        RequestsRoutingModule
 	],
 	providers: [
-		EmployeeService 
-	  ],
-	declarations: [EmployeesComponent]
+		RequestService 
+  ],
+  declarations: [RequestsComponent]
 })
-export class EmployeesModule { }
+export class RequestsModule { }
