@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/Services/user.service';
+import { Meta } from '../../Models/meta';
 
 @Component({
   templateUrl: './employee-detail.component.html',
