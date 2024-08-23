@@ -24,7 +24,7 @@ export class AppMenuComponent implements OnInit {
                     // Roles with all role info to fill out the page, can request R and E from here
                     { label: 'My Roles and Entitlements', icon: 'pi pi-fw pi-users', routerLink: ['/requests'] },
                     // some frontend plugin or bonus feature
-                    { label: 'Dcouments', icon: 'pi pi-fw pi-file-edit', routerLink: ['/documents'] },
+                    { label: 'Documents', icon: 'pi pi-fw pi-file-edit', routerLink: ['/documents'] },
                     // Auth tabs
                     { label: 'Profile', routerLink: ['/profile'] },
                     { label: 'Public',  routerLink: ['/public'] },
