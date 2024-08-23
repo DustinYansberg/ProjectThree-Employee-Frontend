@@ -1,0 +1,84 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            
+            <p-table #dt [loading]="loading" [value]="documents" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true" [rowsPerPageOptions]="[10,20,30,50,100]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"   [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Needs Your Attention</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name"> Name <p-sortIcon field='name'></p-sortIcon></th>
+                        <th pSortableColumn="fileData"> Link <p-sortIcon field="fileData"></p-sortIcon></th>
+                        
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-document>
+                    <tr>
+                        <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ document.name }}
+                        </td>
+                        <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <a href="{{ document.fileData }}">{{ document.fileData }}</a>
+                        </td>
+                        <td>
+                            <div style="padding-left: 15px;" class="align-items-center">
+                                <button pButton pRipple icon="pi pi-check"  (click)="completeDocument(document.id)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+
+            <p-table #dt [loading]="loading" [value]="documentsCompleted" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true" [rowsPerPageOptions]="[10,20,30,50,100]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"   [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Completed Documents</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name"> Name <p-sortIcon field='name'></p-sortIcon></th>
+                        <th pSortableColumn="fileData"> Link <p-sortIcon field="fileData"></p-sortIcon></th>
+                        
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-document>
+                    <tr>
+                        <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    {{ document.name }}
+                        </td>
+                        <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <a href="{{ document.fileData }}">{{ document.fileData }}</a>
+                        </td>
+                        <td>
+                            <div style="padding-left: 15px;" class="align-items-center">
+                                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success" ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        
+
+    </div>
+</div>

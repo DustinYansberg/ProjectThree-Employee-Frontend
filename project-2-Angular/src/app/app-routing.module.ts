@@ -19,6 +19,7 @@ import { AuthGuard } from './Services/auth.guard';
                   (m) => m.DashboardModule
                 ),
             },
+            { path: 'documents', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
             {
               path: 'employees',
               /*canActivate: [AuthGuard],*/ loadChildren: () =>
