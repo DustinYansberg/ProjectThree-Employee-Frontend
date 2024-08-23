@@ -7,6 +7,7 @@ import { Employee } from 'src/app/Models/employee';
 
 import { DocumentService } from 'src/app/Services/document.service';
 import { EmployeeService } from 'src/app/Services/employee.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
     templateUrl: './document.component.html',
@@ -44,25 +45,43 @@ export class DocumentComponent implements OnInit {
 
     employees: any[];
 
-    constructor(private documentService: DocumentService, private messageService: MessageService, private employeeService: EmployeeService) {}
+    constructor(private documentService: DocumentService,
+         private messageService: MessageService,
+          private employeeService: EmployeeService,
+          private userService: UserService
+        ) {}
 
     ngOnInit() {
         this.loading = true;
         //filled with auth service call
-        this.documentService.getDocumentByIdentity("ac16000290f113888191156767f74341").subscribe( response => {
-            let body: any = response.body;
-            body.forEach(element => { 
-                if (element.completed) {
-                    this.documentsCompleted.push(element);
-                } else {
-                    this.documents.push(element);
-                }
-            });
-            this.loading = false;
+        this.userService.getEmployeeId().subscribe((id) => {
 
-            console.log(response);
-        })
+            this.documentService.getDocumentByIdentity(id).subscribe(
+                {next: (response) => {
+                        let body: any = response.body;
+                        body.forEach(element => { 
+                            if (element.completed) {
+                                this.documentsCompleted.push(element);
+                            } else {
+                                this.documents.push(element);
+                            }
+                        });
+                        this.loading = false;
+
+                        console.log(response);
+
+                }, error: (err) => {
+
+                    this.loading = false;
+                    
+                }
+
+         } );
+        } );
+        
     }
+
+
 
     customSort(event: any) {
         event.data.sort((data1: any, data2: any) => {
@@ -135,25 +154,25 @@ export class DocumentComponent implements OnInit {
         this.creatingDocument = false;
     }
 
-    getDocumentsByIdentity(){
-        this.loading = true;
-        //change this to pull from the auth service 
-        this.documentService.getDocumentByIdentity(this.employee.id).subscribe(
-            {next: (response) => {
-                console.log(response)
-                let body : any = response.body;
-                this.documents = body;
-                this.loading = false;
-            }, 
-            error : (err) => {
-                console.log(err)
-                this.loading = false;
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to fetch Employee Documents, try again", life: 3000 });
-            }
-        }
+    // getDocumentsByIdentity(){
+    //     this.loading = true;
+    //     //change this to pull from the auth service 
+    //     this.documentService.getDocumentByIdentity(this.employee.id).subscribe(
+    //         {next: (response) => {
+    //             console.log(response)
+    //             let body : any = response.body;
+    //             this.documents = body;
+    //             this.loading = false;
+    //         }, 
+    //         error : (err) => {
+    //             console.log(err)
+    //             this.loading = false;
+    //             this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to fetch Employee Documents, try again", life: 3000 });
+    //         }
+    //     }
             
-        );
-    }
+    //     );
+    // }
 
     completeDocument() {
         this.submitted = true;
@@ -179,28 +198,28 @@ export class DocumentComponent implements OnInit {
         this.creatingDocument = false;
         }
 
-    createDocument() {
-        this.submitted = true;
-           {
-            //identity.id 
-            //name
-            //file
-                this.documentService.createDocument(this.document)
-                    .pipe(timeout(5000)) // 5 seconds timeout
-                    .subscribe({
-                        next: (response) => {
-                            console.log(response);
-                            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Document Created', life: 3000 });
-                        },
-                        error: (err) => {
-                            this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to create Document, check fields and try again", life: 3000 });
-                        }
-                    });
-            }
+    // createDocument() {
+    //     this.submitted = true;
+    //        {
+    //         //identity.id 
+    //         //name
+    //         //file
+    //             this.documentService.createDocument(this.document)
+    //                 .pipe(timeout(5000)) // 5 seconds timeout
+    //                 .subscribe({
+    //                     next: (response) => {
+    //                         console.log(response);
+    //                         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Document Created', life: 3000 });
+    //                     },
+    //                     error: (err) => {
+    //                         this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to create Document, check fields and try again", life: 3000 });
+    //                     }
+    //                 });
+    //         }
 
-        this.documentDialog = false;
-        this.creatingDocument = false;
-        }
+    //     this.documentDialog = false;
+    //     this.creatingDocument = false;
+    //     }
 
 
     findIndexById(id: string): number {
