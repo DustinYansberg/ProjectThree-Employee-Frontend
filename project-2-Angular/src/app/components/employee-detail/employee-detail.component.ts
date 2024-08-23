@@ -1,6 +1,5 @@
 import { Email } from 'src/app/Models/email';
-import { Meta } from 'src/app/Models/meta';
-import { EmployeeDetail } from 'src/app/Models/employeeDetails';
+import { EmployeeDetail } from 'src/app/Models/employeeDetail';
 import { EmployeeService } from 'src/app/Services/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -21,7 +20,8 @@ export class EmployeeDetailComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
-
+  
+  
   ngOnInit() {
     this.userService.getEmployeeId().subscribe((id) => {
       this.employeeId = id;

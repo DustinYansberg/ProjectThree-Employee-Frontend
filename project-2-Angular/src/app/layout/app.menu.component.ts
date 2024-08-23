@@ -22,7 +22,7 @@ export class AppMenuComponent implements OnInit {
                     //Change to view accounts rather than creating your own you must request them
                     { label: 'My Accounts', icon: 'pi pi-fw pi-sitemap', routerLink: ['/accounts'] },
                     // Roles with all role info to fill out the page, can request R and E from here
-                    { label: 'My Roles and Entitlements', icon: 'pi pi-fw pi-users', routerLink: ['/permissions'] },
+                    { label: 'My Roles and Entitlements', icon: 'pi pi-fw pi-users', routerLink: ['/requests'] },
                     // some frontend plugin or bonus feature
                     { label: 'Dcouments', icon: 'pi pi-fw pi-file-edit', routerLink: ['/documents'] }
                     { label: 'IIQ Plugin', icon: 'pi pi-fw pi-check', routerLink: ['/plugin'] },
