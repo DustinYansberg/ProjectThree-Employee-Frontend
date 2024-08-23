@@ -1,9 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AccountDetail } from '../Models/accountDetails';
-import { Employee } from '../Models/employee';
 import { Account } from '../Models/account';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class AccountService {

@@ -18,13 +18,6 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                   (m) => m.DashboardModule
                 ),
             },
-            {
-              path: 'employees',
-              loadChildren: () =>
-                import('./components/employees/employees.module').then(
-                  (m) => m.EmployeesModule
-                ),
-            },
             { path: 'documents', loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
             { path: 'requests', loadChildren: () => import('./components/requests/requests.module').then(m => m.RequestsModule) },
             {
@@ -40,13 +33,6 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                 import('./components/accounts/accounts.module').then(
                   (m) => m.AccountsModule
                 ),
-            },
-            {
-              path: 'accountdetail/:id',
-              loadChildren: () =>
-                import(
-                  './components/account-detail/account-detail.module'
-                ).then((m) => m.AccountDetailModule),
             },
             {
               path: 'uikit',

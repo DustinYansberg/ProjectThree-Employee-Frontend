@@ -36,8 +36,6 @@ export class UserService {
       this.http.get(apiUrl, { observe: 'response' }).subscribe({
         next: (response) => {
           const employeeResponse: any = response.body;
-          console.log('employeeResponse:', employeeResponse);
-
           if (employeeResponse && employeeResponse.id) {
             observer.next(employeeResponse.id);
           } else {

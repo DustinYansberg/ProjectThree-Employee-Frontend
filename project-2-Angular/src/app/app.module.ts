@@ -26,13 +26,6 @@ import { UserService } from './Services/user.service';
     AppRoutingModule,
     AuthModule.forRoot({
       ...env.auth0,
-      // TODO INTERCEPTOR STUFF YAY
-      // httpInterceptor: {
-      //   allowedList: [
-      //     `${env.api.serverUrl}/employee/**`,
-      //     `${env.api.serverUrl}/api/messages/protected`,
-      //   ],
-      // },
     }),
     localAuthModule,
     AppLayoutModule,
