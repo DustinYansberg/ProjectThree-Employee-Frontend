@@ -19,7 +19,6 @@ import { AppSidebarComponent } from './app.sidebar.component';
 import { AppLayoutComponent } from './app.layout.component';
 import { MenuModule } from 'primeng/menu'; // Import the MenuModule from primeng
 import { ButtonModule } from 'primeng/button';
-// import { LoginButtonComponent } from '../components/auth/buttons/login-button.component';
 import { AuthModule } from '../components/auth/auth.module';
 
 @NgModule({

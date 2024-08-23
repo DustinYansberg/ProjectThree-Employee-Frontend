@@ -15,9 +15,6 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { AuthService } from './Services/auth.service';
-import { AuthGuard } from './Services/auth.guard';
-
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthModule as localAuthModule } from './components/auth/auth.module';
 import { environment as env } from '../environments/environment';
@@ -49,8 +46,6 @@ import { UserService } from './Services/user.service';
     NodeService,
     PhotoService,
     ProductService,
-    AuthService,
-    AuthGuard,
     UserService,
   ],
   bootstrap: [AppComponent],
