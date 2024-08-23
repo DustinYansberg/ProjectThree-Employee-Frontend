@@ -21,6 +21,7 @@ import { AuthGuard } from './Services/auth.guard';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthModule as localAuthModule } from './components/auth/auth.module';
 import { environment as env } from '../environments/environment';
+import { UserService } from './Services/user.service';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
@@ -28,6 +29,13 @@ import { environment as env } from '../environments/environment';
     AppRoutingModule,
     AuthModule.forRoot({
       ...env.auth0,
+      // TODO INTERCEPTOR STUFF YAY
+      // httpInterceptor: {
+      //   allowedList: [
+      //     `${env.api.serverUrl}/employee/**`,
+      //     `${env.api.serverUrl}/api/messages/protected`,
+      //   ],
+      // },
     }),
     localAuthModule,
     AppLayoutModule,
@@ -43,6 +51,7 @@ import { environment as env } from '../environments/environment';
     ProductService,
     AuthService,
     AuthGuard,
+    UserService,
   ],
   bootstrap: [AppComponent],
 })
