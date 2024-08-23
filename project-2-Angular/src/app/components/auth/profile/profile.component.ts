@@ -9,15 +9,19 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
   private auth = inject(AuthService);
-
-  title = 'Decoded ID Token';
-
   user$ = this.auth.user$;
-  ngOnInit(): void {
-    console.log(this.user$);
-  }
   code$ = this.user$.pipe(map((user) => JSON.stringify(user, null, 2)));
+  title = 'Decoded ID Token';
+  encodedIdToken: string | null = null;
+
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.auth.idTokenClaims$.subscribe((claims) => {
+      this.encodedIdToken = claims?.__raw || null;
+      console.log(this.encodedIdToken);
+    });
+  }
 
   goToRoot(): void {
     this.router.navigate(['/']);

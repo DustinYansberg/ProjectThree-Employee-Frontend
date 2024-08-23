@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Employee } from '../Models/employee';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class EmployeeService {
+  private auth = inject(AuthService);
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   url: string = 'http://4.156.40.62:9001/employee';
@@ -27,6 +28,18 @@ export class EmployeeService {
       observe: 'response',
     });
   }
+
+  getEmployeeIDByEmail(email: string) {
+    this.http
+      .get(this.url + '/email/' + email, {
+        headers: this.getHeaders(),
+        observe: 'response',
+      })
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
+
   getEmployeeByEmail(email: string) {
     return this.http.get(this.url + '/email/' + email, {
       headers: this.getHeaders(),
