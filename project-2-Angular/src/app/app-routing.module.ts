@@ -25,6 +25,8 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                   (m) => m.EmployeesModule
                 ),
             },
+            { path: 'documents', loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
+            { path: 'requests', loadChildren: () => import('./components/requests/requests.module').then(m => m.RequestsModule) },
             {
               path: 'employeedetail/:id',
               loadChildren: () =>

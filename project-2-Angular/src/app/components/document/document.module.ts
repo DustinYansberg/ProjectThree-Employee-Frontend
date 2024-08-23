@@ -1,5 +1,5 @@
-import { AccountDetailComponent } from './account-detail.component';
-import { AccountDetailRoutingModule } from './account-detail-routing.module';
+import { DocumentComponent } from './document.component';
+import { DocumentRoutingModule } from './document-routing.module';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,28 +17,32 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { AccountService } from 'src/app/Services/account.service';
+import { DocumentService } from 'src/app/Services/document.service';
+import { EmployeeService } from '../../Services/employee.service';
 
 @NgModule({
-  imports: [
-    AccountDetailRoutingModule,
-    CommonModule,
-    TableModule,
-    FileUploadModule,
-    FormsModule,
-    ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-  ],
-  providers: [AccountService],
-  declarations: [AccountDetailComponent],
+	imports: [
+		DocumentRoutingModule,
+		CommonModule,
+        TableModule,
+        FileUploadModule,
+        FormsModule,
+        ButtonModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        RatingModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        RadioButtonModule,
+        InputNumberModule,
+        DialogModule
+	],
+	providers: [
+    DocumentService,
+    EmployeeService
+	  ],
+	declarations: [DocumentComponent]
 })
-export class AccountDetailModule {}
+export class DocumentModule { }
