@@ -48,7 +48,7 @@ export class EmployeeDetailComponent implements OnInit {
                 new Date(),
                 new Date()
               ),
-              employeeResponse.isManager || false,
+              employeeResponse.employeeDetails?.isManager || false,
               employeeResponse.riskScore || 0,
               employeeResponse.manager?.displayName || 'N/A'
             );
