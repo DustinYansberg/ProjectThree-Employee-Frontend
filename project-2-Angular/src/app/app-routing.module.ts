@@ -21,13 +21,6 @@ import { AuthGuard } from './Services/auth.guard';
             },
             { path: 'documents', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
             {
-              path: 'employees',
-              /*canActivate: [AuthGuard],*/ loadChildren: () =>
-                import('./components/employees/employees.module').then(
-                  (m) => m.EmployeesModule
-                ),
-            },
-            {
               path: 'employeedetail/:id',
               /*canActivate: [AuthGuard],*/ loadChildren: () =>
                 import(
@@ -40,13 +33,6 @@ import { AuthGuard } from './Services/auth.guard';
                 import('./components/accounts/accounts.module').then(
                   (m) => m.AccountsModule
                 ),
-            },
-            {
-              path: 'accountdetail/:id',
-              /*canActivate: [AuthGuard],*/ loadChildren: () =>
-                import(
-                  './components/account-detail/account-detail.module'
-                ).then((m) => m.AccountDetailModule),
             },
             {
               path: 'uikit',
