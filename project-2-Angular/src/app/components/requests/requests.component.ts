@@ -11,6 +11,7 @@ import { Name } from 'src/app/Models/name';
 import { RequestService } from 'src/app/Services/request.service';
 import { Request } from '../../Models/request';
 import { Role } from '../../Models/role';
+import { Meta } from '../../Models/meta';
 
 @Component({
 		templateUrl: './requests.component.html',
@@ -20,7 +21,7 @@ export class RequestsComponent implements OnInit {
 		
 		requests: Request[] = [];
 
-  defaultRequest: Request = new Request("", new Employee("", "", new Name("", "", ""), "", "", false, "", [], new EmployeeDetail("", "", "", [], [], []), new Manager("", "", "")), new Role("", "", false), "");
+  defaultRequest: Request = new Request("", new Employee("", "", new Name("", "", ""), "", "", false, "", [new Email("", "", true)], new EmployeeDetail("", "", "", false, "", new Meta(new Date(), new Date()), false, 0, ""), new Manager("", "", "")), new Role("", "", true), "");
 
 		selectedRequest: Request[] = [];
 

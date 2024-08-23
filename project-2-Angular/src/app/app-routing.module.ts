@@ -20,6 +20,7 @@ import { AuthGuard } from './Services/auth.guard';
                 ),
             },
             { path: 'documents', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
+            { path: 'requests', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/requests/requests.module').then(m => m.RequestsModule) },
             {
               path: 'employeedetail/:id',
               /*canActivate: [AuthGuard],*/ loadChildren: () =>
