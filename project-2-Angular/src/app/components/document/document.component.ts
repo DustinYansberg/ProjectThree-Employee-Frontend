@@ -53,7 +53,6 @@ export class DocumentComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        //filled with auth service call
         this.userService.getEmployeeId().subscribe((id) => {
 
             this.documentService.getDocumentByIdentity(id).subscribe(
