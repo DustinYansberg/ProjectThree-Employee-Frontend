@@ -2,7 +2,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
-import { AuthGuard } from './Services/auth.guard';
 
 @NgModule({
   imports: [
@@ -14,23 +13,23 @@ import { AuthGuard } from './Services/auth.guard';
           children: [
             {
               path: '',
-              /*canActivate: [AuthGuard],*/ loadChildren: () =>
+              loadChildren: () =>
                 import('./components/dashboard/dashboard.module').then(
                   (m) => m.DashboardModule
                 ),
             },
-            { path: 'documents', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
-            { path: 'requests', /*canActivate: [AuthGuard],*/ loadChildren: () => import('./components/requests/requests.module').then(m => m.RequestsModule) },
+            { path: 'documents', loadChildren: () => import('./components/document/document.module').then(m => m.DocumentModule) },
+            { path: 'requests', loadChildren: () => import('./components/requests/requests.module').then(m => m.RequestsModule) },
             {
               path: 'employeedetail/:id',
-              /*canActivate: [AuthGuard],*/ loadChildren: () =>
+              loadChildren: () =>
                 import(
                   './components/employee-detail/employee-detail.module'
                 ).then((m) => m.EmployeeDetailModule),
             },
             {
               path: 'accounts',
-              /*canActivate: [AuthGuard],*/ loadChildren: () =>
+              loadChildren: () =>
                 import('./components/accounts/accounts.module').then(
                   (m) => m.AccountsModule
                 ),
@@ -75,31 +74,10 @@ import { AuthGuard } from './Services/auth.guard';
             {
               path: 'profile',
               loadChildren: () =>
-                import('./components/auth/profile/profile.module').then(
+                import('./components/profile/profile.module').then(
                   (m) => m.ProfileModule
                 ),
             },
-            // {
-            //   path: 'public',
-            //   loadChildren: () =>
-            //     import('./features/public/public.module').then(
-            //       (m) => m.PublicModule
-            //     ),
-            // },
-            // {
-            //   path: 'protected',
-            //   loadChildren: () =>
-            //     import('./features/protected/protected.module').then(
-            //       (m) => m.ProtectedModule
-            //     ),
-            // },
-            // {
-            //   path: 'admin',
-            //   loadChildren: () =>
-            //     import('./features/admin/admin.module').then(
-            //       (m) => m.AdminModule
-            //     ),
-            // },
             {
               path: 'callback',
               loadChildren: () =>
@@ -107,19 +85,7 @@ import { AuthGuard } from './Services/auth.guard';
                   (m) => m.CallbackModule
                 ),
             },
-            // {
-            //   path: '**',
-            //   loadChildren: () =>
-            //     import('./features/not-found/not-found.module').then(
-            //       (m) => m.NotFoundModule
-            //     ),
-            // },
           ],
-        },
-        {
-          path: 'auth',
-          loadChildren: () =>
-            import('./components/auth/auth.module').then((m) => m.AuthModule),
         },
         {
           path: 'landing',
@@ -128,8 +94,8 @@ import { AuthGuard } from './Services/auth.guard';
               (m) => m.LandingModule
             ),
         },
-        { path: 'notfound', component: NotfoundComponent },
-        { path: '**', redirectTo: '/notfound' },
+        // { path: 'notfound', component: NotfoundComponent },
+        // { path: '**', redirectTo: '/notfound' },
       ],
       {
         scrollPositionRestoration: 'enabled',

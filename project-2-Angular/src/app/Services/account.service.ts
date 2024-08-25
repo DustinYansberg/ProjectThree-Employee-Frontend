@@ -1,35 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Employee } from '../Models/employee';
 import { Account } from '../Models/account';
-import { AuthService } from './auth.service';
-import { A } from '@fullcalendar/core/internal-common';
 
 @Injectable()
 export class AccountService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   url: String = 'http://localhost:3000/';
 
-  private getHeaders() {
-    return this.authService.getHeaders();
-  }
-
   getAllAccounts() {
-    return this.http.get(this.url + 'api/accounts', { headers: this.getHeaders(), observe: 'response' });
+    return this.http.get(this.url + 'api/accounts', { observe: 'response' });
   }
 
   getAccountById(id: string) {
-    return this.http.get(this.url + 'api/accounts/' + id, { headers: this.getHeaders(), observe: 'response' });
+    return this.http.get(this.url + 'api/accounts/' + id, { observe: 'response' });
   }
-
+  
   createAccount(account: Account) {
-    return this.http.post(this.url + 'api/accounts', account, { headers: this.getHeaders(), observe: 'response' });
+    return this.http.post(this.url + 'api/accounts', account, { observe: 'response' });
   }
 
   deleteAccount(id: string) {
-    return this.http.delete(this.url + 'api/accounts/' + id, { headers: this.getHeaders(), observe: 'response' });
+    return this.http.delete(this.url + 'api/accounts/' + id, { observe: 'response' });
   }
 
 }

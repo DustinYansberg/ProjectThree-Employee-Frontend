@@ -9,8 +9,6 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from '../auth/shared/shared.module';
-import { LoginButtonComponent } from '../auth/buttons/login-button.component';
 import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
