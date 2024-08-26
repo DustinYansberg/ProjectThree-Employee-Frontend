@@ -163,4 +163,12 @@ export class AppLayoutComponent implements OnDestroy {
       this.menuOutsideClickListener();
     }
   }
+
+  handleLogin(): void {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/',
+      },
+    });
+  }
 }
