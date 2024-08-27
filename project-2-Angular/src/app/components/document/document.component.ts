@@ -65,7 +65,7 @@ export class DocumentComponent implements OnInit {
         this.loading = true;
         //filled with auth service call
         // this.userService.getEmployeeId().subscribe((id) => {
-        this.userService.getEmployeeId().subscribe((id) => {
+        // this.userService.getEmployeeId().subscribe((id) => {
         //     this.documentService.getDocumentByIdentity(id).subscribe(
         //         {next: (response) => {
         //                 let body: any = response.body;
