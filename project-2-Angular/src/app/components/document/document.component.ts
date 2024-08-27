@@ -15,12 +15,6 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class DocumentComponent implements OnInit {
 
-    //get by id GET
-
-    //create doc POST
-
-    //complete doc PUT
-
     // Current SailPoint identityId for the session
     identityId: string;
 
@@ -63,31 +57,30 @@ export class DocumentComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        //filled with auth service call
-        // this.userService.getEmployeeId().subscribe((id) => {
-        // this.userService.getEmployeeId().subscribe((id) => {
-        //     this.documentService.getDocumentByIdentity(id).subscribe(
-        //         {next: (response) => {
-        //                 let body: any = response.body;
-        //                 body.forEach(element => { 
-        //                     if (element.completed) {
-        //                         this.documentsCompleted.push(element);
-        //                     } else {
-        //                         this.documents.push(element);
-        //                     }
-        //                 });
-        //                 this.loading = false;
+        
 
-        //                 console.log(response);
+            this.documentService.getDocumentByIdentity(this.identityId).subscribe(
+                {next: (response) => {
+                        let body: any = response.body;
+                        body.forEach(element => { 
+                            if (element.completed) {
+                                this.documentsCompleted.push(element);
+                            } else {
+                                this.documents.push(element);
+                            }
+                        });
+                        this.loading = false;
 
-        //         }, error: (err) => {
+                        console.log(response);
 
-        //             this.loading = false;
+                }, error: (err) => {
+
+                    this.loading = false;
                     
-        //         }
+                }
 
-        //  } );
-        // } );
+         } );
+
         
     }
 
