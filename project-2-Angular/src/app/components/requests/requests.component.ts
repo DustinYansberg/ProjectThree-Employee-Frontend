@@ -11,17 +11,18 @@ import { Name } from 'src/app/Models/name';
 import { RequestService } from 'src/app/Services/request.service';
 import { Request } from '../../Models/request';
 import { Role } from '../../Models/role';
-import { Meta } from '../../Models/meta';
 
 @Component({
 		templateUrl: './requests.component.html',
 		providers: [MessageService]
 })
 export class RequestsComponent implements OnInit {
-		
+
 		requests: Request[] = [];
 
-  defaultRequest: Request = new Request("", new Employee("", "", new Name("", "", ""), "", "", false, "", [new Email("", "", true)], new EmployeeDetail("", "", "", false, "", new Meta(new Date(), new Date()), false, 0, ""), new Manager("", "", "")), new Role("", "", true), "");
+		possibleRequests: Request[] = [];
+
+  		defaultRequest: Request = new Request("","","","",false, false,"");
 
 		selectedRequest: Request[] = [];
 
@@ -29,11 +30,11 @@ export class RequestsComponent implements OnInit {
 
 		denyRequestDialog: boolean = false;
 
-    denyRequestsDialog: boolean = false;
-    
-    approveRequestDialog: boolean = false;
+		denyRequestsDialog: boolean = false;
+		
+		approveRequestDialog: boolean = false;
 
-    approveRequestsDialog: boolean = false;
+		approveRequestsDialog: boolean = false;
 		
 		submitted: boolean = false;
 
@@ -43,12 +44,18 @@ export class RequestsComponent implements OnInit {
 
 		loading: boolean = false;
 
+		//add user service to get the logged user
 		constructor(private requestService: RequestService, private messageService: MessageService) { }
 		
 
 		ngOnInit() {
 				this.loading = true;
-				this.requestService.getAllRequests()
+				
+				this.requests
+				this.possibleRequests
+
+
+				this.requestService.getByApp("")
 				.subscribe({
 						next: (response) => {
 								console.log(response);
@@ -143,61 +150,61 @@ export class RequestsComponent implements OnInit {
       this.request = { ...request };
     }
 
-    confirmDenySelected() {
-				this.denyRequestDialog = false;
-				this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
-				for (let i = 0; i < this.selectedRequest.length; i++) {
-						this.requestService.denyRequest(this.selectedRequest[i].id).subscribe({ next: (response) => {
-								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
-						} });
-				}
-				this.selectedRequest = [];
-  }
+//     confirmDenySelected() {
+// 				this.denyRequestDialog = false;
+// 				this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
+// 				for (let i = 0; i < this.selectedRequest.length; i++) {
+// 						this.requestService.processRequest(this.selectedRequest[i].id).subscribe({ next: (response) => {
+// 								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
+// 						} });
+// 				}
+// 				this.selectedRequest = [];
+//   }
 
-    confirmApproveSelected() {
-      this.approveRequestDialog = false;
-      this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
-      for (let i = 0; i < this.selectedRequest.length; i++) {
-        this.requestService.approveRequest(this.selectedRequest[i].id).subscribe({
-          next: (response) => {
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
-          }
-        });
-      }
-      this.selectedRequest = [];
-    }
+//     confirmApproveSelected() {
+//       this.approveRequestDialog = false;
+//       this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
+//       for (let i = 0; i < this.selectedRequest.length; i++) {
+//         this.requestService.approveRequest(this.selectedRequest[i].id).subscribe({
+//           next: (response) => {
+//             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
+//           }
+//         });
+//       }
+//       this.selectedRequest = [];
+//     }
 
-		confirmDeny() {
-				this.denyRequestDialog = false;
-				this.requestService.denyRequest(this.request.id)
-				.pipe(timeout(5000)) // 5 seconds timeout
-				.subscribe({
-						next: (response) => {
-								this.requests = this.requests.filter(val => val.id !== this.request.id);
-								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
-						},
-						error: (err) => {
-								this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
-						}
-				});
-				this.request = this.defaultRequest;
-  }
+// 		confirmDeny() {
+// 				this.denyRequestDialog = false;
+// 				this.requestService.denyRequest(this.request.id)
+// 				.pipe(timeout(5000)) // 5 seconds timeout
+// 				.subscribe({
+// 						next: (response) => {
+// 								this.requests = this.requests.filter(val => val.id !== this.request.id);
+// 								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
+// 						},
+// 						error: (err) => {
+// 								this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
+// 						}
+// 				});
+// 				this.request = this.defaultRequest;
+//   }
 
-    confirmApprove() {
-      this.approveRequestDialog = false;
-      this.requestService.approveRequest(this.request.id)
-        .pipe(timeout(5000)) // 5 seconds timeout
-        .subscribe({
-          next: (response) => {
-            this.requests = this.requests.filter(val => val.id !== this.request.id);
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
-          },
-          error: (err) => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
-          }
-        });
-      this.request = this.defaultRequest;
-    }
+//     confirmApprove() {
+//       this.approveRequestDialog = false;
+//       this.requestService.approveRequest(this.request.id)
+//         .pipe(timeout(5000)) // 5 seconds timeout
+//         .subscribe({
+//           next: (response) => {
+//             this.requests = this.requests.filter(val => val.id !== this.request.id);
+//             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
+//           },
+//           error: (err) => {
+//             this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
+//           }
+//         });
+//       this.request = this.defaultRequest;
+//     }
 
     openNew() {
       this.request = this.defaultRequest;
@@ -210,34 +217,34 @@ export class RequestsComponent implements OnInit {
 				this.submitted = false;
 		}
 
-		saveRequest() {
-				this.submitted = true;
+		// saveRequest() {
+		// 		this.submitted = true;
 		
-				if (this.request.id?.trim()) {
-						if (this.request.id) {
-								 this.requestService.updateRequest(this.request)
-										.pipe(timeout(5000)) // 5 seconds timeout
-										.subscribe({
-												next: (response) => {
-														console.log(response);
-														this.request.id = response.body['id'];
-														let index = this.findIndexById(this.request.id);
-														this.requests[index] = this.request;
-														this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Updated', life: 3000 });
-												},
-												error: (err) => {
-														this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to update request, check fields and try again", life: 3000 });
-												}
-										});
-						} 
-				}
-				this.requestDialog = false;
-		}
+		// 		if (this.request.id?.trim()) {
+		// 				if (this.request.id) {
+		// 						 this.requestService.updateRequest(this.request)
+		// 								.pipe(timeout(5000)) // 5 seconds timeout
+		// 								.subscribe({
+		// 										next: (response) => {
+		// 												console.log(response);
+		// 												this.request.id = response.body['id'];
+		// 												let index = this.findIndexById(this.request.id);
+		// 												this.requests[index] = this.request;
+		// 												this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Updated', life: 3000 });
+		// 										},
+		// 										error: (err) => {
+		// 												this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to update request, check fields and try again", life: 3000 });
+		// 										}
+		// 								});
+		// 				} 
+		// 		}
+		// 		this.requestDialog = false;
+		// }
 
 		findIndexById(id: string): number {
 				let index = -1;
 				for (let i = 0; i < this.requests.length; i++) {
-						if (this.requests[i].id === id) {
+						if (this.requests[i].entitlementId === id) {
 								index = i;
 								break;
 						}

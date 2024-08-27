@@ -25,8 +25,8 @@ export class AppMenuComponent implements OnInit {
                     { label: 'My Roles and Entitlements', icon: 'pi pi-fw pi-users', routerLink: ['/requests'] },
                     // some frontend plugin or bonus feature
                     { label: 'Documents', icon: 'pi pi-fw pi-file-edit', routerLink: ['/documents'] },
-                    { label: 'IIQ Plugin', icon: 'pi pi-fw pi-check', routerLink: ['/plugin'] },
-                    { label: 'Profile', routerLink: ['/profile'] },
+                    // { label: 'IIQ Plugin', icon: 'pi pi-fw pi-check', routerLink: ['/plugin'] },
+                    // { label: 'Profile', routerLink: ['/profile'] },
                 ]
             }
         ];

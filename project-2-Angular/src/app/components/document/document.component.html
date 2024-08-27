@@ -3,7 +3,7 @@
         <div class="card px-6 py-6">
             <p-toast></p-toast>
             
-            <p-table #dt [loading]="loading" [value]="documents" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true" [rowsPerPageOptions]="[10,20,30,50,100]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"   [rowHover]="true" dataKey="id">
+            <p-table #dt [loading]="loading" [value]="documents" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [globalFilterFields]="['name']" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Needs Your Attention</h5>
@@ -27,11 +27,11 @@
                             {{ document.name }}
                         </td>
                         <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            <a href="{{ document.fileData }}">{{ document.fileData }}</a>
+                            <a href="{{ document.fileData }}" target="_blank">{{ document.fileData }}</a>
                         </td>
                         <td>
                             <div style="padding-left: 15px;" class="align-items-center">
-                                <button pButton pRipple icon="pi pi-check"  (click)="completeDocument(document.id)"></button>
+                                <button pButton pRipple icon="pi pi-check"  (click)="completeDocument(document)"></button>
                             </div>
                         </td>
                     </tr>
@@ -42,7 +42,7 @@
         <div class="card px-6 py-6">
             <p-toast></p-toast>
 
-            <p-table #dt [loading]="loading" [value]="documentsCompleted" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true" [rowsPerPageOptions]="[10,20,30,50,100]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"   [rowHover]="true" dataKey="id">
+            <p-table #dt [loading]="loading" [value]="documentsCompleted" [customSort]="true" (sortFunction)="customSort($event)" [columns]="cols" responsiveLayout="scroll" [globalFilterFields]="['name']"   [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Completed Documents</h5>
@@ -66,7 +66,7 @@
                                     {{ document.name }}
                         </td>
                         <td style="width:33%; min-width:8rem; max-width: 33%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            <a href="{{ document.fileData }}">{{ document.fileData }}</a>
+                            <a href="{{ document.fileData }}" target="_blank">{{ document.fileData }}</a>
                         </td>
                         <td>
                             <div style="padding-left: 15px;" class="align-items-center">

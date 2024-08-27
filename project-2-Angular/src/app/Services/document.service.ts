@@ -7,8 +7,8 @@ export class DocumentService {
 
   constructor(private http: HttpClient) { }
 
-  // url: String = 'http://4.156.40.62:9001/document';
-  url: String = 'http://localhost:8085/document/';
+  url: String = 'http://4.156.40.62:9001/document/';
+  // url: String = 'http://localhost:8085/document/';
 
   getDocumentByIdentity(id: string) {
     return this.http.get(this.url + 'getdocs/' + id, { observe: 'response' });
