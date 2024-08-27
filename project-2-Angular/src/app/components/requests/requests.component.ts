@@ -11,6 +11,7 @@ import { Name } from 'src/app/Models/name';
 import { RequestService } from 'src/app/Services/request.service';
 import { Request } from '../../Models/request';
 import { Role } from '../../Models/role';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
 		templateUrl: './requests.component.html',
@@ -44,8 +45,15 @@ export class RequestsComponent implements OnInit {
 
 		loading: boolean = false;
 
+		identityId: string;
+
 		//add user service to get the logged user
-		constructor(private requestService: RequestService, private messageService: MessageService) { }
+		constructor(private requestService: RequestService, private messageService: MessageService,
+			private userService: UserService) {
+				this.userService.idObservable.subscribe(id => {
+					this.identityId = id});
+					console.log(this.identityId)
+			 }
 		
 
 		ngOnInit() {
@@ -54,6 +62,9 @@ export class RequestsComponent implements OnInit {
 				this.requests
 				this.possibleRequests
 
+				//loop through logged users account and run the getbyapp method to add to the possible requests array
+				// display the possible requests array with a button to start that request and leave a note
+				//for any active requests, have the in the requests array and display them as pending review
 
 				this.requestService.getByApp("")
 				.subscribe({
