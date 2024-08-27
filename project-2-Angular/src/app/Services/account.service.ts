@@ -7,7 +7,7 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  url: String = 'http://localhost:3000/';
+  url: String = 'http://4.156.40.62:9001/';
 
   getAllAccounts() {
     return this.http.get(this.url + 'api/accounts', { observe: 'response' });

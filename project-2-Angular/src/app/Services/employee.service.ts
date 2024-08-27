@@ -7,7 +7,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   url: string = 'http://4.156.40.62:9001/employee';
-  // url: string = 'http://localhost:9001/employee';
+  // url: stri2ng = 'http://localhost:9001/employee';
 
   getAllEmployees() {
     return this.http.get(this.url, {
