@@ -21,6 +21,9 @@ export class DocumentComponent implements OnInit {
 
     //complete doc PUT
 
+    // Current SailPoint identityId for the session
+    identityId: string;
+
     documents: Document[] = [];
 
     documentsCompleted: Document[] = [];
@@ -49,34 +52,42 @@ export class DocumentComponent implements OnInit {
          private messageService: MessageService,
           private employeeService: EmployeeService,
           private userService: UserService
-        ) {}
+        ) {
+        
+        /* Grabs the current identity from userService */
+        this.userService.idObservable.subscribe(id => {
+        this.identityId = id});
+        console.log(this.identityId)
+
+        } 
 
     ngOnInit() {
         this.loading = true;
+        //filled with auth service call
+        // this.userService.getEmployeeId().subscribe((id) => {
         this.userService.getEmployeeId().subscribe((id) => {
+        //     this.documentService.getDocumentByIdentity(id).subscribe(
+        //         {next: (response) => {
+        //                 let body: any = response.body;
+        //                 body.forEach(element => { 
+        //                     if (element.completed) {
+        //                         this.documentsCompleted.push(element);
+        //                     } else {
+        //                         this.documents.push(element);
+        //                     }
+        //                 });
+        //                 this.loading = false;
 
-            this.documentService.getDocumentByIdentity(id).subscribe(
-                {next: (response) => {
-                        let body: any = response.body;
-                        body.forEach(element => { 
-                            if (element.completed) {
-                                this.documentsCompleted.push(element);
-                            } else {
-                                this.documents.push(element);
-                            }
-                        });
-                        this.loading = false;
+        //                 console.log(response);
 
-                        console.log(response);
+        //         }, error: (err) => {
 
-                }, error: (err) => {
-
-                    this.loading = false;
+        //             this.loading = false;
                     
-                }
+        //         }
 
-         } );
-        } );
+        //  } );
+        // } );
         
     }
 

@@ -16,7 +16,9 @@ import { Name } from 'src/app/Models/name';
 })
 export class EmployeeDetailComponent implements OnInit {
   employeeDetails: EmployeeDetail;
-  public employeeId: string;
+
+  // Grab the string from the observable in the user service
+  public identityId: string;
 
   constructor(
     private employeeService: EmployeeService,
@@ -31,39 +33,45 @@ export class EmployeeDetailComponent implements OnInit {
   
   
   ngOnInit() {
-    
-    this.userService.getEmployeeId().subscribe((id) => {
-      this.employeeId = id;
-      this.employeeService.getEmployeeById(this.employeeId).subscribe({
-        next: (response) => {
-          let employeeResponse: any = response.body;
-          this.employeeDetails = new EmployeeDetail(
-            employeeResponse.id || '',
-            employeeResponse.userName || '',
-            employeeResponse.displayName || '',
-            employeeResponse.active || false,
-            employeeResponse.emails[0].value
-              ? employeeResponse.emails[0].value
-              : 'N/A',
-            new Meta(new Date(), new Date()),
-            employeeResponse.employeeDetails?.isManager || false,
-            employeeResponse.riskScore || 0,
-            employeeResponse.manager?.displayName || 'N/A'
-          );
-        },
-        error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.message,
-            life: 3000,
-          });
-          this.router.navigate(['/notfound']);
-        },
+    /* These stacked subscribe methods populate the 
+       identityId by the current gmail for the rest of the user session */
+    this.userService.getEmployeeId().subscribe(data => {
+      this.userService.idSubject.next(data.body.id);
+      this.userService.idObservable.subscribe(id => {
+        this.identityId = id
+    // ---------------------
+
+        this.employeeService.getEmployeeById(this.identityId).subscribe({
+          next: (response) => {
+            let employeeResponse: any = response.body;
+            this.employeeDetails = new EmployeeDetail(
+              this.identityId || '',
+              employeeResponse.userName || '',
+              employeeResponse.displayName || '',
+              employeeResponse.active || false,
+              employeeResponse.emails[0].value
+                ? employeeResponse.emails[0].value
+                : 'N/A',
+              new Meta(new Date(), new Date()),
+              employeeResponse.employeeDetails?.isManager || false,
+              employeeResponse.riskScore || 0,
+              employeeResponse.manager?.displayName || 'N/A'
+            );
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: err.message,
+              life: 3000,
+            });
+            this.router.navigate(['/notfound']);
+          },
+        });
+
       });
     });
 
-    
   }
 
   editEmployee() {
