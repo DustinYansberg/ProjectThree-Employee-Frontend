@@ -18,7 +18,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Home',
                 items: [
                     //Change to /employeedetail/ (pass id from the login)
-                    { label: 'My Info', icon: 'pi pi-fw pi-home', routerLink: ['/employeedetail/{id}'] },
+                    { label: 'My Info', icon: 'pi pi-fw pi-home', routerLink: ['/employeedetail'] },
                     //Change to view accounts rather than creating your own you must request them
                     { label: 'My Accounts', icon: 'pi pi-fw pi-sitemap', routerLink: ['/accounts'] },
                     // Roles with all role info to fill out the page, can request R and E from here
