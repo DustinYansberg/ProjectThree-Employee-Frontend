@@ -173,18 +173,18 @@ export class DocumentComponent implements OnInit {
     //     );
     // }
 
-    completeDocument() {
+    completeDocument(document: Document) {
         this.submitted = true;
            {
-                this.documentService.completeDocument(this.document.id)
+                this.documentService.completeDocument(document.id)
                     .pipe(timeout(5000)) // 5 seconds timeout
                     .subscribe({
                         next: (response) => {
                             console.log(response);
                             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Document Completed', life: 3000 });
 
-                            this.documents = this.documents.filter(val => val.id !== this.document.id);
-                            this.documentsCompleted.push( this.document );
+                            this.documents = this.documents.filter(val => val.id !== document.id);
+                            this.documentsCompleted.push( document );
                         },
                         error: (err) => {
                             this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to complete Document, try again", life: 3000 });
