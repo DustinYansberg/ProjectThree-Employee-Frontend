@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/Services/user.service';
 import { Meta } from '../../Models/meta';
+import { Employee } from 'src/app/Models/employee';
+import { Manager } from 'src/app/Models/manager';
+import { Name } from 'src/app/Models/name';
 
 @Component({
   templateUrl: './employee-detail.component.html',
@@ -21,9 +24,14 @@ export class EmployeeDetailComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
+
+  employeeDialog: boolean = false;
+  // editedEmployee: Employee = new Employee("", "", new Name("", "", ""), "", "employee", false, "", [new Email("", "", true)],
+  //  new EmployeeDetail("","","",false,"",new Meta(new Date(), new Date()),"",), new Manager("", "", ""));
   
   
   ngOnInit() {
+    
     this.userService.getEmployeeId().subscribe((id) => {
       this.employeeId = id;
       this.employeeService.getEmployeeById(this.employeeId).subscribe({
@@ -54,5 +62,14 @@ export class EmployeeDetailComponent implements OnInit {
         },
       });
     });
+
+    
   }
+
+  editEmployee() {
+    
+    this.employeeDialog = true;
+    
+}
+
 }
