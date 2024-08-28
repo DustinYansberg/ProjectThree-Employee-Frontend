@@ -13,6 +13,7 @@ import { Request } from '../../Models/request';
 import { Role } from '../../Models/role';
 import { UserService } from 'src/app/Services/user.service';
 import { EmployeeService } from 'src/app/Services/employee.service';
+import { Entitlement } from 'src/app/Models/entitlement';
 
 @Component({
   templateUrl: './requests.component.html',
@@ -20,6 +21,10 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 })
 export class RequestsComponent implements OnInit {
   requests: Request[] = [];
+
+  entitlements: Entitlement[] = [];
+
+  entitlement: Entitlement = new Entitlement('','','','');
 
   possibleRequests: Request[] = [];
 
@@ -45,29 +50,35 @@ export class RequestsComponent implements OnInit {
 
   loading: boolean = false;
 
-  accounts: string[] = [
-	"Zendesk",
-	"Salesforce",
-	"Appian",
-	"SailPoint",
-	"ServiceNow",
-	"Custom",
-  ] ;
+  // accounts: string[] = [
+	// "Zendesk",
+	// "Salesforce",
+	// "Appian",
+	// "SailPoint",
+	// "ServiceNow",
+	// "Custom",
+  // ] ;
 
   employee: Employee;
-  employeeAccounts: string[] = [
+
+  //get from gianni
+  employeeApps: string[] = [
 	"Zendesk",
-	"Appian"
-  ]
+	"Appian",
+  "Salesforce"
+  ];
+  pagingEntitlements: any[] = [];
 
   identityId: string;
+
+  manId: string;
 
   //add user service to get the logged user
   constructor(
     private requestService: RequestService,
     private messageService: MessageService,
     private userService: UserService,
-	// private employeeService : EmployeeService
+	  private employeeService : EmployeeService
   ) {
 	this.userService.idObservable.subscribe(id => {
 	this.identityId = id});
@@ -78,30 +89,25 @@ export class RequestsComponent implements OnInit {
     this.loading = true;
     this.requests;
     this.possibleRequests;
-	// this.employeeService.getEmployeeById(this.identityId).subscribe(
-	// 	{next: (response)=>{
-	// 		let body: any = response.body;
-	// 		body.forEach(element = >{
+    this.entitlements;
+    this.employeeService.getEmployeeById(this.identityId).subscribe(
+      {next: (response)=>{
+        let resource: any = response.body;
+        this.manId = resource.manager.value;
+        
+      }}
+    );
 
-	// 		})
-			
-	// 	}}
-	// );
-
-    //loop through logged users account and run the getbyapp method to add to the possible requests array
-    // display the possible requests array with a button to start that request and leave a note
-    //for any active requests, have the in the requests array and display them as pending review
-	
-	for (let account of this.accounts) {
+	for (let appName of this.employeeApps) {
 		//if the user has the account
-		if (this.employeeAccounts.includes(account)) 
-			{ // add the account to the 
-		  this.requestService.getByApp(account).subscribe({
+    console.log(appName);
+		  this.requestService.getByApp(appName).subscribe({
 			next: (response) => {
 			  let body: any = response.body;
 			  body.forEach((element: any) => { 
 				if (element) {
-				  this.requests.push(element);
+				  this.entitlements.push(element);
+          console.log(element);
 				}
 			  });
 			  this.loading = false;
@@ -111,60 +117,35 @@ export class RequestsComponent implements OnInit {
 			  this.loading = false;
 			}
 		  });
-		} else {
-		  this.requestService.getByApp(account).subscribe({
+		 
+	  }
+    
+	  this.pagingEntitlements = this.entitlements;
+		
+  }
+
+  //get manager id by getEmployeeById(this.identityId) 
+  //extract managerid from body
+  //get note from form
+  //user id from this.identityId
+  //entitlementId = selectedEnttitlement.id
+  
+  createRequest()  {
+		//if the user has the account
+    console.log(this.manId, this.entitlement.name, this.identityId , this.entitlement.note);
+		  this.requestService.createRequest(this.manId, this.entitlement.name, this.identityId , this.entitlement.note).subscribe({
 			next: (response) => {
-			  let body: any = response.body;
-			  body.forEach((element: any) => { 
-				if (element) {
-				  this.possibleRequests.push(element);
-				}
-			  });
 			  this.loading = false;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Submitted', life: 3000 });
 			},
 			error: (err) => {
-			  console.error('Error fetching possible requests:', err); 
+			  console.error('Error fetching requests:', err);
 			  this.loading = false;
 			}
 		  });
-		}
+      this.requestDialog = false;
+		 
 	  }
-	  
-		
-
-	
-
-    // this.requestService.getByApp('').subscribe({
-    //   next: (response) => {
-    //     console.log(response);
-    //     let body: any = response.body;
-
-    //     body.forEach((resource: Request) => {
-    //       // Put additional logic here if needed
-    //     });
-    //     this.requests = body;
-
-    //     this.cols = [
-    //       { field: 'username', header: 'Username' },
-    //       { field: 'role', header: 'Role' },
-    //       { field: 'note', header: 'Note' },
-    //     ];
-
-    //     this.loading = false;
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.loading = false;
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Error',
-    //       detail: err.message,
-    //       life: 3000,
-    //     });
-    //   },
-    // });
-  }
-  
 
   customSort(event: any) {
     event.data.sort((data1: any, data2: any) => {
@@ -207,87 +188,12 @@ export class RequestsComponent implements OnInit {
     }
   }
 
-  denySelectedEmployees() {
-    this.denyRequestsDialog = true;
-  }
 
-  approveSelectedEmployees() {
-    this.approveRequestsDialog = true;
-  }
 
-  editRequest(request: Request) {
-    this.request = { ...request };
-    this.requestDialog = true;
-  }
 
-  denyRequest(request: Request) {
-    this.denyRequestDialog = true;
-    this.request = { ...request };
-  }
-
-  approveRequest(request: Request) {
-    this.approveRequestDialog = true;
-    this.request = { ...request };
-  }
-
-  //     confirmDenySelected() {
-  // 				this.denyRequestDialog = false;
-  // 				this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
-  // 				for (let i = 0; i < this.selectedRequest.length; i++) {
-  // 						this.requestService.processRequest(this.selectedRequest[i].id).subscribe({ next: (response) => {
-  // 								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
-  // 						} });
-  // 				}
-  // 				this.selectedRequest = [];
-  //   }
-
-  //     confirmApproveSelected() {
-  //       this.approveRequestDialog = false;
-  //       this.requests = this.requests.filter(val => !this.selectedRequest.includes(val));
-  //       for (let i = 0; i < this.selectedRequest.length; i++) {
-  //         this.requestService.approveRequest(this.selectedRequest[i].id).subscribe({
-  //           next: (response) => {
-  //             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
-  //           }
-  //         });
-  //       }
-  //       this.selectedRequest = [];
-  //     }
-
-  // 		confirmDeny() {
-  // 				this.denyRequestDialog = false;
-  // 				this.requestService.denyRequest(this.request.id)
-  // 				.pipe(timeout(5000)) // 5 seconds timeout
-  // 				.subscribe({
-  // 						next: (response) => {
-  // 								this.requests = this.requests.filter(val => val.id !== this.request.id);
-  // 								this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Denied', life: 3000 });
-  // 						},
-  // 						error: (err) => {
-  // 								this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
-  // 						}
-  // 				});
-  // 				this.request = this.defaultRequest;
-  //   }
-
-  //     confirmApprove() {
-  //       this.approveRequestDialog = false;
-  //       this.requestService.approveRequest(this.request.id)
-  //         .pipe(timeout(5000)) // 5 seconds timeout
-  //         .subscribe({
-  //           next: (response) => {
-  //             this.requests = this.requests.filter(val => val.id !== this.request.id);
-  //             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Approved', life: 3000 });
-  //           },
-  //           error: (err) => {
-  //             this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 3000 });
-  //           }
-  //         });
-  //       this.request = this.defaultRequest;
-  //     }
-
-  openNew() {
-    this.request = this.defaultRequest;
+  openNew(value: any) {
+    this.entitlement.name =  value.displayableName;
+    this.entitlement.application =  value.applicationDisplayName;
     this.submitted = false;
     this.requestDialog = true;
   }
@@ -297,29 +203,6 @@ export class RequestsComponent implements OnInit {
     this.submitted = false;
   }
 
-  // saveRequest() {
-  // 		this.submitted = true;
-
-  // 		if (this.request.id?.trim()) {
-  // 				if (this.request.id) {
-  // 						 this.requestService.updateRequest(this.request)
-  // 								.pipe(timeout(5000)) // 5 seconds timeout
-  // 								.subscribe({
-  // 										next: (response) => {
-  // 												console.log(response);
-  // 												this.request.id = response.body['id'];
-  // 												let index = this.findIndexById(this.request.id);
-  // 												this.requests[index] = this.request;
-  // 												this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Request Updated', life: 3000 });
-  // 										},
-  // 										error: (err) => {
-  // 												this.messageService.add({ severity: 'error', summary: 'Error', detail: "Unable to update request, check fields and try again", life: 3000 });
-  // 										}
-  // 								});
-  // 				}
-  // 		}
-  // 		this.requestDialog = false;
-  // }
 
   findIndexById(id: string): number {
     let index = -1;
