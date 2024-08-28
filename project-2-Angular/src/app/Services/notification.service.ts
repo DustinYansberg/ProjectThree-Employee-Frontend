@@ -14,7 +14,7 @@ export class NotificationService {
   }
 
   checkNotifictionsById(id: string) {
-    return this.http.delete(this.url + 'check/' + id, { observe: 'response' });
+    return this.http.put(this.url + 'check/' + id, { observe: 'response' });
   }
 
 }
