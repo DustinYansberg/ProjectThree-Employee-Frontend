@@ -67,7 +67,7 @@ export class AccountsComponent implements OnInit {
         next: (response) => {
           let body: any = response.body;
 
-          console.log(response);
+          this.accounts = body;
 
           this.cols = [
             { field: 'displayName', header: 'displayName' },
