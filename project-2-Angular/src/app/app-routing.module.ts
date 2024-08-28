@@ -46,6 +46,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                   (m) => m.AccountsModule
                 ),
             },
+            { path: 'appointments', loadChildren: () => import('./components/appointments/appointment.module').then(m => m.AppointmentModule) },
             {
               path: 'uikit',
               loadChildren: () =>
