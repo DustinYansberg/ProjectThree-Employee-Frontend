@@ -1,28 +1,33 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Account } from '../Models/account';
+import { identity } from 'rxjs';
 
 @Injectable()
 export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  url: String = 'http://4.156.40.62:9001/';
+  url: string = 'http://4.156.40.62:9001/account/';
 
-  getAllAccounts() {
-    return this.http.get(this.url + 'api/accounts', { observe: 'response' });
+  getAllAccountsByIdentityId(identityId: string) {
+    return this.http.get(this.url + identityId, { observe: 'response' });
   }
 
   getAccountById(id: string) {
-    return this.http.get(this.url + 'api/accounts/' + id, { observe: 'response' });
+    return this.http.get(this.url + id, { observe: 'response' });
   }
   
   createAccount(account: Account) {
-    return this.http.post(this.url + 'api/accounts', account, { observe: 'response' });
+    return this.http.post(this.url , account, { observe: 'response' });
+  }
+
+  processEntitlements(id: string){
+    return this.http.put(this.url + "permission/" + id, { observe: 'response' });
   }
 
   deleteAccount(id: string) {
-    return this.http.delete(this.url + 'api/accounts/' + id, { observe: 'response' });
+    return this.http.delete(this.url + "/" + id, { observe: 'response' });
   }
 
 }

@@ -20,6 +20,8 @@ export class EmployeeDetailComponent implements OnInit {
   // Grab the string from the observable in the user service
   public identityId: string;
 
+  employee: Employee;
+
   constructor(
     private employeeService: EmployeeService,
     private messageService: MessageService,
@@ -28,35 +30,50 @@ export class EmployeeDetailComponent implements OnInit {
   ) {}
 
   employeeDialog: boolean = false;
+  editMode: boolean = false; 
   // editedEmployee: Employee = new Employee("", "", new Name("", "", ""), "", "employee", false, "", [new Email("", "", true)],
   //  new EmployeeDetail("","","",false,"",new Meta(new Date(), new Date()),"",), new Manager("", "", ""));
-  
-  
+
   ngOnInit() {
     /* These stacked subscribe methods populate the 
        identityId by the current gmail for the rest of the user session */
-    this.userService.getEmployeeId().subscribe(data => {
+    this.userService.getEmployeeId().subscribe((data) => {
       this.userService.idSubject.next(data.body.id);
-      this.userService.idObservable.subscribe(id => {
-        this.identityId = id
-    // ---------------------
+      this.userService.idObservable.subscribe((id) => {
+        this.identityId = id;
+        // ---------------------
 
         this.employeeService.getEmployeeById(this.identityId).subscribe({
           next: (response) => {
             let employeeResponse: any = response.body;
-            this.employeeDetails = new EmployeeDetail(
-              this.identityId || '',
-              employeeResponse.userName || '',
-              employeeResponse.displayName || '',
-              employeeResponse.active || false,
-              employeeResponse.emails[0].value
-                ? employeeResponse.emails[0].value
-                : 'N/A',
-              new Meta(new Date(), new Date()),
-              employeeResponse.employeeDetails?.isManager || false,
-              employeeResponse.riskScore || 0,
-              employeeResponse.manager?.displayName || 'N/A'
+            console.log(employeeResponse);
+            if (
+              !employeeResponse.emails ||
+              !employeeResponse.emails[0] ||
+              !employeeResponse.emails[0].value
+            ) {
+              employeeResponse.emails = [new Email('', ' ', true)];
+            }
+            if (
+              !employeeResponse.manager ||
+              !employeeResponse.manager.displayName
+            ) {
+              employeeResponse.manager = new Manager('N/A', 'N/A', 'N/A');
+            }
+            this.employee = new Employee(
+              employeeResponse.id,
+              employeeResponse.userName,
+              employeeResponse.name,
+              employeeResponse.displayName,
+              employeeResponse.userType,
+              employeeResponse.active,
+              employeeResponse.password,
+              employeeResponse.emails,
+              employeeResponse.employeeDetails,
+              employeeResponse.manager
             );
+            console.log(this.employee);
+            console.log(this.employee.emails);
           },
           error: (err) => {
             this.messageService.add({
@@ -68,16 +85,16 @@ export class EmployeeDetailComponent implements OnInit {
             this.router.navigate(['/notfound']);
           },
         });
-
       });
     });
-
   }
 
   editEmployee() {
-    
     this.employeeDialog = true;
-    
-}
+    this.editMode = !this.editMode;
+  }
 
+  toggleEditMode(){
+    this.editMode = !this.editMode;
+  }
 }

@@ -1,35 +1,27 @@
-import { Meta } from './meta';
+// displayName : string
+        // value : string
+        // $ref : string
 
-export class EmployeeDetail {
-  id: string;
-  userName: string;
-  displayName: string;
-  active: boolean;
-  email: string;
-  meta: Meta;
-  isManager: boolean;
-  riskScore: number;
-  managerDisplayName: string;
-
-  constructor(
-    id: string,
-    userName: string,
-    displayName: string,
-    active: boolean,
-    email: string,
-    meta: Meta,
-    isManager: boolean,
-    riskScore: number,
-    managerDisplayName: string
-  ) {
-    this.id = id;
-    this.userName = userName;
-    this.displayName = displayName
-    this.active = active;
-    this.email = email;
-    this.meta = meta;
-    this.isManager = isManager;
-    this.riskScore = riskScore;
-    this.managerDisplayName = managerDisplayName;
-  }
-}
+        import { Account } from "./account";
+        import { Entitlement } from "./entitlement";
+        import { Role } from "./role";
+        
+        export class EmployeeDetail {
+        
+            displayName: string;
+            value: string;
+            $ref: string;
+            accounts: Account[];
+            roles: Role[];
+            entitlements: Entitlement[];
+        
+            constructor(displayName: string, value: string, $ref: string, accounts: Account[], roles: Role[], entitlements: Entitlement[]) {
+                this.displayName = displayName;
+                this.value = value;
+                this.$ref = $ref;
+                this.accounts = accounts;
+                this.roles = roles;
+                this.entitlements = entitlements;
+            }
+        
+        }

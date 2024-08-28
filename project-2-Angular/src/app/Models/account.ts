@@ -1,14 +1,60 @@
-
 export class Account {
-
-    displayName: string;
-    value: string;
-    $ref: string;
-
-    constructor(displayName: string, value: string, $ref: string) {
-        this.displayName = displayName;
-        this.value = value;
-        this.$ref = $ref;
+    userId: string;
+    accountAppId: string;
+    nativeIdentity: string;
+    accountDisplayName: string;
+    appName: string;
+    username: string;
+    lastName: string;
+    firstName: string;
+    communityNickname: string;
+    accountAlias: string;
+    email: string;
+    active: boolean;
+    locked: boolean;
+  
+    constructor(
+      userId: string,
+      accountAppId: string,
+      nativeIdentity: string,
+      accountDisplayName: string,
+      appName: string,
+      username: string,
+      lastName: string,
+      firstName: string,
+      communityNickname: string,
+      accountAlias: string,
+      email: string,
+      active: boolean,
+      locked: boolean
+    ) {
+      this.userId = userId;
+      this.accountAppId = accountAppId;
+      this.nativeIdentity = nativeIdentity;
+      this.accountDisplayName = accountDisplayName;
+      this.appName = appName;
+      this.username = username;
+      this.lastName = lastName;
+      this.firstName = firstName;
+      this.communityNickname = communityNickname;
+      this.accountAlias = accountAlias;
+      this.email = email;
+      this.active = active;
+      this.locked = locked;
     }
+  }
+  
 
-}
+// String userId;
+// 	String accountAppId;
+// 	String nativeIdentity;
+// 	String accountDisplayName;
+// 	String appName;
+// 	String username;
+// 	String lastName;
+// 	String firstName;
+// 	String communityNickname;
+// 	String accountAlias;
+// 	String email;
+// 	boolean active;
+// 	boolean locked;
