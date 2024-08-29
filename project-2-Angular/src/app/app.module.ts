@@ -19,6 +19,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { AuthModule as localAuthModule } from './components/auth/auth.module';
 import { environment as env } from '../environments/environment';
 import { UserService } from './Services/user.service';
+import { SharedService } from './Services/shared.service';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
@@ -40,6 +41,7 @@ import { UserService } from './Services/user.service';
     PhotoService,
     ProductService,
     UserService,
+    SharedService,
   ],
   bootstrap: [AppComponent],
 })

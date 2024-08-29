@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { LayoutService } from './service/app.layout.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Router } from '@angular/router';
+import { SharedService } from '../Services/shared.service';
 
 @Component({
   selector: 'app-topbar',
@@ -12,6 +13,8 @@ import { Router } from '@angular/router';
 export class AppTopBarComponent {
   private auth = inject(AuthService);
   private doc = inject(DOCUMENT);
+
+  unreadNotifications: number = 0;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -24,8 +27,10 @@ export class AppTopBarComponent {
   constructor(
     public layoutService: LayoutService,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public sharedService: SharedService
   ) {}
+  
 
   profileItems: MenuItem[];
 
@@ -35,6 +40,16 @@ export class AppTopBarComponent {
 
   // Dropdown for profile items
   ngOnInit() {
+    const userId = 'user123'; // Replace with actual user ID
+    this.sharedService.fetchUnreadNotifications(userId);
+    this.sharedService.unreadNotifications$.subscribe(
+      unreadCount => {
+        this.unreadNotifications = unreadCount;
+        console.log('Number of unread notifications:', this.unreadNotifications);
+      }
+    );
+
+
     this.profileItems = [
       {
         label: 'Sign Out',
