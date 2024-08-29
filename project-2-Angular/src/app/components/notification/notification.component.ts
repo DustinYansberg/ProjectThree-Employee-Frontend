@@ -27,22 +27,6 @@ export class NotificationComponent implements OnInit {
     console.log(this.identityId);
   }
 
-  // this.notificationService.getNotificationsById('abc123').subscribe({
-  //   next: (response: any) => {
-  //     let notificationResponse: any = response.body;
-  //     console.log(notificationResponse);
-
-  //     // Assuming notificationResponse is an array of notification objects
-  //     let notifications: Notification[] = notificationResponse.map(
-  //       (notification: any) => ({
-  //         notificationId: notification.notificationId,
-  //         identityId: notification.identityId,
-  //         applicationId: notification.applicationId,
-  //         message: notification.message,
-  //         checked: notification.checked,
-  //         createdAt: notification.createdAt,
-  //       })
-  //     );
   ngOnInit() {
     this.notificationService.getNotificationsById('abc123').subscribe({
       next: (notifications: Notification[]) => {
