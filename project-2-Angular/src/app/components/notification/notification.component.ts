@@ -20,35 +20,44 @@ export class NotificationComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private notificationService: NotificationService
-  ) {}
+  ) {
+    this.userService.idObservable.subscribe((id) => {
+      this.identityId = id;
+    });
+    console.log(this.identityId);
+  }
 
+  // this.notificationService.getNotificationsById('abc123').subscribe({
+  //   next: (response: any) => {
+  //     let notificationResponse: any = response.body;
+  //     console.log(notificationResponse);
+
+  //     // Assuming notificationResponse is an array of notification objects
+  //     let notifications: Notification[] = notificationResponse.map(
+  //       (notification: any) => ({
+  //         notificationId: notification.notificationId,
+  //         identityId: notification.identityId,
+  //         applicationId: notification.applicationId,
+  //         message: notification.message,
+  //         checked: notification.checked,
+  //         createdAt: notification.createdAt,
+  //       })
+  //     );
   ngOnInit() {
-    /* These stacked subscribe methods populate the 
-       identityId by the current gmail for the rest of the user session */
-    this.userService.getEmployeeId().subscribe((data) => {
-      this.userService.idSubject.next(data.body.id);
-      this.userService.idObservable.subscribe((id) => {
-        this.identityId = id;
-        // ---------------------
-
-        this.notificationService
-          .getNotificationsById(this.identityId)
-          .subscribe({
-            next: (response: any) => {
-              let notificationResponse: any = response.body;
-              console.log(notificationResponse);
-            },
-            error: (err) => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: err.message,
-                life: 3000,
-              });
-              this.router.navigate(['/notfound']);
-            },
-          });
-      });
+    this.notificationService.getNotificationsById('abc123').subscribe({
+      next: (notifications: Notification[]) => {
+        this.notifications = notifications;
+        console.log(this.notifications);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message,
+          life: 3000,
+        });
+        this.router.navigate(['/notfound']);
+      },
     });
   }
 }
