@@ -14,7 +14,7 @@ export class AppTopBarComponent {
   private auth = inject(AuthService);
   private doc = inject(DOCUMENT);
 
-  unreadNotifications: number = 0;
+
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -30,13 +30,14 @@ export class AppTopBarComponent {
     public router: Router,
     public sharedService: SharedService
   ) {}
-  
 
   profileItems: MenuItem[];
 
   settingsItems: MenuItem[];
 
   isDarkMode: boolean = false;
+
+  unreadNotifications: number = 0;
 
   // Dropdown for profile items
   ngOnInit() {
@@ -57,11 +58,11 @@ export class AppTopBarComponent {
         command: () => this.signOut(),
       },
       {
-        label: 'Notifications',
+        label: `Notifications`,
         icon: 'pi pi-bell',
         command: () => this.viewNotifications(),
-
-      }
+        badge: this.unreadNotifications > 0 ? this.unreadNotifications.toString() : null
+      },
     ];
 
     this.settingsItems = [
