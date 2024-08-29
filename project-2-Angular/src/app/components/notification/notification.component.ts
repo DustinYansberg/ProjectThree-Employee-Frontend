@@ -13,32 +13,7 @@ export class NotificationComponent implements OnInit {
   // Grab the string from the observable in the user service
   public identityId: string;
 
-  notifications: Notification[] = [
-    {
-      notificationId: 1,
-      identityId: 'ac160002917a122581917ac7d15d07a3',
-      applicationId: 'ac12000290eb1baf8190f0a73ef80926',
-      message: 'Gabe Guio has created an account for you in Salesforce.',
-      checked: true,
-      createdAt: 1724883606000,
-    },
-    {
-      notificationId: 2,
-      identityId: 'ac160002917a122581917ac7d15d07a4',
-      applicationId: 'ac12000290eb1baf8190f0a73ef80927',
-      message: 'Your password has been reset successfully.',
-      checked: false,
-      createdAt: 1724883607000,
-    },
-    {
-      notificationId: 3,
-      identityId: 'ac160002917a122581917ac7d15d07a5',
-      applicationId: 'ac12000290eb1baf8190f0a73ef80928',
-      message: 'You have a new message from HR.',
-      checked: true,
-      createdAt: 1724883608000,
-    },
-  ];
+  notifications: Notification[];
 
   constructor(
     private messageService: MessageService,
@@ -59,7 +34,7 @@ export class NotificationComponent implements OnInit {
         this.notificationService
           .getNotificationsById(this.identityId)
           .subscribe({
-            next: (response) => {
+            next: (response: any) => {
               let notificationResponse: any = response.body;
               console.log(notificationResponse);
             },
