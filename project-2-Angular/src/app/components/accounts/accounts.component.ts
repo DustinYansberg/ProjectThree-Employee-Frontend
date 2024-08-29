@@ -221,6 +221,9 @@ export class AccountsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log(response);
+          // TODO
+          // Call createNotification here
+          // Create new Notification(identityId, applicationId);
           this.account.id = response.body['id'];
           this.accounts = [...this.accounts, this.account];
           this.messageService.add({

@@ -41,17 +41,28 @@ export class AppTopBarComponent {
         icon: 'pi pi-sign-out',
         command: () => this.signOut(),
       },
+      {
+        label: 'Notifications',
+        icon: 'pi pi-bell',
+        command: () => this.viewNotifications(),
+
+      }
     ];
 
     this.settingsItems = [
       {
         label: 'Dark Mode',
         icon: 'pi pi-moon',
-        command: () => this.toggleDarkMode(),
+        command: () => this.toggleDarkMode()
       },
     ];
 
+
     this.updateSettingsItems();
+  }
+
+  viewNotifications() {
+    this.router.navigate(['/notifications']);
   }
 
   // Light/dark mode toggle
