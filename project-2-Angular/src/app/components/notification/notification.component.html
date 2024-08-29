@@ -1,0 +1,19 @@
+<div *ngIf="notifications" class="surface-section py-4 px-3">
+  <div class="font-medium text-3xl text-900 mb-3">
+    Account Notifications
+  </div>
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="text-left p-2">Message</th>
+        <th class="text-left p-2">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notification of notifications">
+        <td class="p-2">{{ notification.message }}</td>
+        <td class="p-2">{{ notification.createdAt | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

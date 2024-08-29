@@ -46,7 +46,20 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                   (m) => m.AccountsModule
                 ),
             },
-            { path: 'appointments', loadChildren: () => import('./components/appointments/appointment.module').then(m => m.AppointmentModule) },
+            {
+              path: 'notifications',
+              loadChildren: () =>
+                import('./components/notification/notification.module').then(
+                  (m) => m.NotificationModule
+                ),
+            },
+            {
+              path: 'appointments',
+              loadChildren: () =>
+                import('./components/appointments/appointment.module').then(
+                  (m) => m.AppointmentModule
+                ),
+            },
             {
               path: 'uikit',
               loadChildren: () =>
